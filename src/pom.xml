@@ -1,0 +1,5 @@
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.29</version> <!-- 请使用最新的版本 -->
+</dependency>
