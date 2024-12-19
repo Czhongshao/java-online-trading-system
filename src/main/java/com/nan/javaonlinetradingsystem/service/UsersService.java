@@ -8,5 +8,5 @@ public interface UsersService {
      * @param users 用户对象
      * @return 受影响的行数
      */
-    int addUsers(Users users);
+    public int addUsers(Users users);
 }

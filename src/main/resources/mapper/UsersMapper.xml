@@ -7,16 +7,16 @@
 
     <!-- 配置 ResultMap 映射表 -->
     <resultMap id="UsersResult" type="Users">
-        <result property="userID" column="UserID" />
-        <result property="userName" column="UserName" />
-        <result property="password" column="Password" />
-        <result property="email" column="Email" />
-        <result property="role" column="Role" />
-        <result property="registrationDate" column="RegistrationDate" />
+        <result property="userID" column="UserID"/>
+        <result property="userName" column="UserName"/>
+        <result property="password" column="Password"/>
+        <result property="email" column="Email"/>
+        <result property="role" column="Role"/>
+        <result property="registrationDate" column="RegistrationDate"/>
     </resultMap>
 
     <!-- 插入用户，数据库自动生成 UserID -->
-    <insert id="insertUsers" parameterType="Users" useGeneratedKeys="true" keyProperty="userID">
+    <insert id="insertUsers" parameterType="com.nan.javaonlinetradingsystem.domain.Users" useGeneratedKeys="true" keyProperty="userID">
         INSERT INTO Users (UserName, Password, Email, Role, RegistrationDate)
         VALUES (#{userName}, #{password}, #{email}, #{role}, #{registrationDate})
     </insert>
