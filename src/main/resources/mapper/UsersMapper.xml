@@ -15,10 +15,10 @@
         <result property="registrationDate" column="RegistrationDate"/>
     </resultMap>
 
-    <!-- 插入用户，数据库自动生成 UserID -->
-    <insert id="insertUsers" parameterType="com.nan.javaonlinetradingsystem.domain.Users" useGeneratedKeys="true" keyProperty="userID">
+    <!-- 插入用户，数据库自动生成 UserID 和 RegistrationDate -->
+    <insert id="insertUsers" parameterType="com.nan.javaonlinetradingsystem.domain.Users">
         INSERT INTO Users (UserName, Password, Email, Role, RegistrationDate)
-        VALUES (#{userName}, #{password}, #{email}, #{role}, #{registrationDate})
+        VALUES (#{userName}, #{password}, #{email}, #{role}, NOW())
     </insert>
 
 </mapper>

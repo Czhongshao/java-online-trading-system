@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UsersMapper {
     // 新增用户的方法，返回值为影响的行数
-    public int insertUsers(Users users);
+    int insertUsers(Users users);  // 这是方法名
 }
 

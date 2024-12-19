@@ -8,5 +8,6 @@ public interface UsersService {
      * @param users 用户对象
      * @return 受影响的行数
      */
-    public int addUsers(Users users);
+    int addUsers(Users users);  // 这个方法名需要与实现类一致
 }
+

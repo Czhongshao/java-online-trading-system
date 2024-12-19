@@ -2,8 +2,8 @@ package com.nan.javaonlinetradingsystem.domain;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Objects;
+import java.util.Random;
 
 public class Users {
     private int userID;
@@ -16,12 +16,14 @@ public class Users {
     public Users() {
     }
 
-    public Users(int userID, String userName, String password, String email, String role) {
-        this.userID = userID;
+    public Users(String userName, String password, String email, String role) {
+        // 随机生成用户ID
+        this.userID = new Random().nextInt(1000000);  // 生成一个随机的用户ID（范围可以调整）
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.role = role;
+        // 使用当前时间作为注册日期
         this.registrationDate = Date.valueOf(LocalDate.now());
     }
 

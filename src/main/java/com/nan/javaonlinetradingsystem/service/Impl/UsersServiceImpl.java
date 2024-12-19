@@ -14,7 +14,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int addUsers(Users users) {
-        // 调用 UsersMapper 的 insertUsers 方法
-        return usersMapper.insertUsers(users);
+        return usersMapper.insertUsers(users);  // 调用 Mapper 方法
     }
 }
