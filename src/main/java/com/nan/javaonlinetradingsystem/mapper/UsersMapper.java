@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UsersMapper {
-    // 新增用户的方法，返回值为影响的行数
-    int insertUsers(Users users);  // 这是方法名
+    int insertUsers(Users users);  // 注意方法名和 SQL 映射 id 要一致
 }
 

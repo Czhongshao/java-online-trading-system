@@ -4,12 +4,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com.nan.javaonlinetradingsystem")
-@SpringBootApplication
-public class JavaOnlineTradingSystemApplication {
+import java.util.TimeZone;
 
+@SpringBootApplication
+@MapperScan("com.nan.javaonlinetradingsystem.mapper")
+public class JavaOnlineTradingSystemApplication {
     public static void main(String[] args) {
+        // 设置默认时区为中国时区
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         SpringApplication.run(JavaOnlineTradingSystemApplication.class, args);
     }
-
 }
