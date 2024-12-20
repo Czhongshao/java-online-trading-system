@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nan.javaonlinetradingsystem.mapper.OrderDetailsMapper">
+
+    <!-- 配置结果映射表 -->
+    <resultMap id="OrderDetailsResult" type="com.nan.javaonlinetradingsystem.domain.OrdersDetails">
+        <result property="orderDetailsID" column="OrderDetailsID"/>
+        <result property="orderID" column="OrderID"/>
+        <result property="productID" column="ProductID"/>
+        <result property="quantity" column="Quantity"/>
+        <result property="unitPrice" column="UnitPrice"/>
+    </resultMap>
+
+    <!-- 插入新的订单详情 -->
+    <insert id="insertOrderDetail" parameterType="com.nan.javaonlinetradingsystem.domain.OrdersDetails">
+        INSERT INTO OrderDetails (OrderDetailsID, OrderID, ProductID, Quantity, UnitPrice)
+        VALUES (#{orderDetailsID}, #{orderID}, #{productID}, #{quantity}, #{unitPrice})
+    </insert>
+
+    <!-- 查询所有订单详情 -->
+    <select id="selectAllOrderDetails" resultMap="OrderDetailsResult">
+        SELECT * FROM OrderDetails
+    </select>
+
+    <!-- 根据订单详情ID查询订单详情 -->
+    <select id="selectOrderDetailById" parameterType="java.lang.Integer" resultMap="OrderDetailsResult">
+        SELECT * FROM OrderDetails WHERE OrderDetailsID = #{id}
+    </select>
+
+    <!-- 更新订单详情信息 -->
+    <update id="updateOrderDetail" parameterType="com.nan.javaonlinetradingsystem.domain.OrdersDetails">
+        UPDATE OrderDetails
+        <set>
+            <if test="orderID != null">OrderID = #{orderID},</if>
+            <if test="productID != null">ProductID = #{productID},</if>
+            <if test="quantity != null">Quantity = #{quantity},</if>
+            <if test="unitPrice != null">UnitPrice = #{unitPrice}</if>
+        </set>
+        WHERE OrderDetailsID = #{orderDetailsID}
+    </update>
+
+    <!-- 根据订单详情ID删除订单详情 -->
+    <delete id="deleteOrderDetailById" parameterType="java.lang.Integer">
+        DELETE FROM OrderDetails WHERE OrderDetailsID = #{id}
+    </delete>
+
+    <!-- 根据订单ID查询订单详情 -->
+    <select id="selectOrderDetailsByOrderId" parameterType="java.lang.Integer" resultMap="OrderDetailsResult">
+        SELECT * FROM OrderDetails WHERE OrderID = #{orderId}
+    </select>
+
+</mapper>
