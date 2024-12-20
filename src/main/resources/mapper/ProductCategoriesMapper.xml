@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nan.javaonlinetradingsystem.mapper.ProductCategoriesMapper">
+
+    <!-- 配置 ResultMap 映射表 -->
+    <resultMap id="ProductCategoriesResult" type="com.nan.javaonlinetradingsystem.domain.ProductCategories">
+        <result property="categoryID" column="CategoryID"/>
+        <result property="categoryName" column="CategoryName"/>
+        <result property="parentCategoryID" column="ParentCategoryID"/>
+    </resultMap>
+
+    <!-- 插入产品类别 -->
+    <insert id="insertProductCategory" parameterType="com.nan.javaonlinetradingsystem.domain.ProductCategories">
+        INSERT INTO ProductCategories (CategoryID, CategoryName, ParentCategoryID)
+        VALUES (#{categoryID}, #{categoryName}, #{parentCategoryID})
+    </insert>
+
+    <!-- 查询所有产品类别 -->
+    <select id="selectAllProductCategories" resultMap="ProductCategoriesResult">
+        SELECT CategoryID, CategoryName, ParentCategoryID FROM ProductCategories
+    </select>
+
+    <!-- 根据类别ID查询产品类别 -->
+    <select id="selectProductCategoryById" parameterType="java.lang.Integer" resultMap="ProductCategoriesResult">
+        SELECT CategoryID, CategoryName, ParentCategoryID FROM ProductCategories WHERE CategoryID = #{id}
+    </select>
+
+    <!-- 更新产品类别信息 -->
+    <update id="updateProductCategory" parameterType="com.nan.javaonlinetradingsystem.domain.ProductCategories">
+        UPDATE ProductCategories
+        <set>
+            <if test="categoryName != null">CategoryName = #{categoryName},</if>
+            <if test="parentCategoryID != null">ParentCategoryID = #{parentCategoryID},</if>
+        </set>
+        WHERE CategoryID = #{categoryID}
+    </update>
+
+    <!-- 根据类别ID删除产品类别 -->
+    <delete id="deleteProductCategoryById" parameterType="java.lang.Integer">
+        DELETE FROM ProductCategories WHERE CategoryID = #{id}
+    </delete>
+
+    <!-- 根据父类别ID查询子类别 -->
+    <select id="selectProductCategoriesByParentId" parameterType="java.lang.Integer" resultMap="ProductCategoriesResult">
+        SELECT CategoryID, CategoryName, ParentCategoryID FROM ProductCategories WHERE ParentCategoryID = #{parentId}
+    </select>
+
+</mapper>
