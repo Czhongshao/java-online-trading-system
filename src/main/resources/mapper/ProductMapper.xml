@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nan.javaonlinetradingsystem.mapper.ProductMapper">
+
+    <!-- 配置 ResultMap 映射表 -->
+    <resultMap id="ProductResult" type="com.nan.javaonlinetradingsystem.domain.Product">
+        <result property="productID" column="ProductID"/>
+        <result property="productName" column="ProductName"/>
+        <result property="productDescription" column="ProductDescription"/>
+        <result property="price" column="Price"/>
+        <result property="stockQuantity" column="StockQuantity"/>
+        <result property="categoryID" column="CategoryID"/>
+    </resultMap>
+
+    <!-- 插入新产品 -->
+    <insert id="insertProduct" parameterType="com.nan.javaonlinetradingsystem.domain.Product">
+        INSERT INTO Products (ProductID, ProductName, ProductDescription, Price, StockQuantity, CategoryID)
+        VALUES (#{productID}, #{productName}, #{productDescription}, #{price}, #{stockQuantity}, #{categoryID})
+    </insert>
+
+    <!-- 查询所有产品 -->
+    <select id="selectAllProducts" resultMap="ProductResult">
+        SELECT * FROM Products
+    </select>
+
+    <!-- 根据产品ID查询产品 -->
+    <select id="selectProductById" parameterType="java.lang.Integer" resultMap="ProductResult">
+        SELECT * FROM Products WHERE ProductID = #{id}
+    </select>
+
+    <!-- 更新产品信息 -->
+    <update id="updateProduct" parameterType="com.nan.javaonlinetradingsystem.domain.Product">
+        UPDATE Products
+        <set>
+            <if test="productName != null">ProductName = #{productName},</if>
+            <if test="productDescription != null">ProductDescription = #{productDescription},</if>
+            <if test="price != null">Price = #{price},</if>
+            <if test="stockQuantity != null">StockQuantity = #{stockQuantity},</if>
+            <if test="categoryID != null">CategoryID = #{categoryID},</if>
+        </set>
+        WHERE ProductID = #{productID}
+    </update>
+
+    <!-- 根据产品ID删除产品 -->
+    <delete id="deleteProductById" parameterType="java.lang.Integer">
+        DELETE FROM Products WHERE ProductID = #{id}
+    </delete>
+
+    <!-- 根据类别ID查询产品 -->
+    <select id="selectProductsByCategoryId" parameterType="java.lang.Integer" resultMap="ProductResult">
+        SELECT * FROM Products WHERE CategoryID = #{categoryId}
+    </select>
+
+</mapper>
