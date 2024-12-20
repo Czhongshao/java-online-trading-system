@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nan.javaonlinetradingsystem.mapper.SalesStatisticsMapper">
+
+    <resultMap id="SalesStatisticsResult" type="com.nan.javaonlinetradingsystem.domain.SalesStatistics">
+        <result property="statisticID" column="StatisticID"/>
+        <result property="date" column="Date"/>
+        <result property="categoryID" column="CategoryID"/>
+        <result property="merchantID" column="MerchantID"/>
+        <result property="salesAmount" column="SalesAmount"/>
+    </resultMap>
+
+    <insert id="insertSalesStatistics" parameterType="com.nan.javaonlinetradingsystem.domain.SalesStatistics">
+        INSERT INTO SalesStatistics (StatisticID, Date, CategoryID, MerchantID, SalesAmount)
+        VALUES (#{statisticID}, #{date}, #{categoryID}, #{merchantID}, #{salesAmount})
+    </insert>
+
+    <select id="selectAllSalesStatistics" resultMap="SalesStatisticsResult">
+        SELECT * FROM SalesStatistics
+    </select>
+
+    <select id="selectSalesStatisticsById" parameterType="java.lang.Integer" resultMap="SalesStatisticsResult">
+        SELECT * FROM SalesStatistics WHERE StatisticID = #{id}
+    </select>
+
+    <update id="updateSalesStatistics" parameterType="com.nan.javaonlinetradingsystem.domain.SalesStatistics">
+        UPDATE SalesStatistics
+        <set>
+            <if test="date != null">Date = #{date},</if>
+            <if test="categoryID != null">CategoryID = #{categoryID},</if>
+            <if test="merchantID != null">MerchantID = #{merchantID},</if>
+            <if test="salesAmount != null">SalesAmount = #{salesAmount}</if>
+        </set>
+        WHERE StatisticID = #{statisticID}
+    </update>
+
+    <delete id="deleteSalesStatisticsById" parameterType="java.lang.Integer">
+        DELETE FROM SalesStatistics WHERE StatisticID = #{id}
+    </delete>
+
+    <select id="selectSalesStatisticsByDate" parameterType="java.util.Date" resultMap="SalesStatisticsResult">
+        SELECT * FROM SalesStatistics WHERE Date = #{date}
+    </select>
+
+    <select id="selectSalesStatisticsByCategoryId" parameterType="java.lang.Integer" resultMap="SalesStatisticsResult">
+        SELECT * FROM SalesStatistics WHERE CategoryID = #{categoryId}
+    </select>
+
+    <select id="selectSalesStatisticsByMerchantId" parameterType="java.lang.Integer" resultMap="SalesStatisticsResult">
+        SELECT * FROM SalesStatistics WHERE MerchantID = #{merchantId}
+    </select>
+
+</mapper>
