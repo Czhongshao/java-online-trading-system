@@ -6,7 +6,7 @@
 <mapper namespace="com.nan.javaonlinetradingsystem.mapper.UsersMapper">
 
     <!-- 配置 ResultMap 映射表 -->
-    <resultMap id="UsersResult" type="Users">
+    <resultMap id="UsersResult" type="com.nan.javaonlinetradingsystem.domain.Users">
         <result property="userID" column="UserID"/>
         <result property="userName" column="UserName"/>
         <result property="password" column="Password"/>
@@ -20,5 +20,32 @@
         INSERT INTO Users (UserName, Password, Email, Role, RegistrationDate)
         VALUES (#{userName}, #{password}, #{email}, #{role}, NOW())
     </insert>
+
+    <!-- 查询所有用户 -->
+    <select id="selectAllUsers" resultMap="UsersResult">
+        SELECT UserID, UserName, Password, Email, Role, RegistrationDate FROM Users
+    </select>
+
+    <!-- 根据用户ID查询用户 -->
+    <select id="selectUserById" parameterType="java.lang.Integer" resultMap="UsersResult">
+        SELECT UserID, UserName, Password, Email, Role, RegistrationDate FROM Users WHERE UserID = #{id}
+    </select>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUser" parameterType="com.nan.javaonlinetradingsystem.domain.Users">
+        UPDATE Users
+        <set>
+            <if test="userName != null">UserName = #{userName},</if>
+            <if test="password != null">Password = #{password},</if>
+            <if test="email != null">Email = #{email},</if>
+            <if test="role != null">Role = #{role},</if>
+        </set>
+        WHERE UserID = #{userID}
+    </update>
+
+    <!-- 根据用户ID删除用户 -->
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        DELETE FROM Users WHERE UserID = #{id}
+    </delete>
 
 </mapper>
